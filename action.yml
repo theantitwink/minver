@@ -1,0 +1,67 @@
+name: MinVer
+description: Calls MinVer for the current repository
+author: The Antitwink™
+branding:
+  icon: git-commit
+  color: blue
+
+inputs:
+  auto-increment:
+    description: major, minor, or patch (default)
+    default: patch
+    required: false
+  build-metadata:
+    description: the build metadata (the stuff that comes after the "+")
+    default: ''
+    required: false
+  default-pre-release-phase:
+    default: alpha
+    required: false
+    description: alpha (default), preview, etc.
+  ignore-height:
+    default: 'false'
+    required: false
+    description: Use the latest tag (or root commit) as-is, without adding height
+  default-pre-release-identifiers:
+    description: alpha.0 (default), preview.0, etc.
+    required: false
+    default: alpha.0
+  minimum-major-minor:
+    description: 1.0, 1.1, 2.0, etc.
+    default: '0.0'
+    required: false
+  tag-prefix:
+    description: the tag prefix used for MinVer
+    default: v
+    required: false
+  verbosity:
+    description: e[rror], w[arn], i[nfo] (default), d[ebug], or t[race] (case insensitive)
+    default: i
+    required: false
+  github-token:
+    description: the GitHub token to use to authenticate with the repository
+    default: ${{ github.token }}
+    required: false
+  repository:
+    description: the repository to use
+    default: ${{ github.repository }}
+outputs:
+  version:
+    description: the version number
+    value: ${{ steps.get-minver.outputs.version }}
+
+runs:
+  using: composite
+
+  steps:
+    - id: install-minver
+      name: Install MinVer
+      run: dotnet tool install --global minver-cli
+      shell: pwsh
+    
+    - id: get-minver
+      name: Get MinVer
+      run: |
+        $minverOutput = $(minver --auto-increment ${{ inputs.auto-increment }} --build-metadata ${{ inputs.build-metadata }} --default-pre-release-phase ${{ inputs.default-pre-release-phase }} --ignore-height ${{ inputs.ignore-height }} --default-pre-release-identifiers ${{ inputs.default-pre-release-identifiers }} --minimum-major-minor ${{ inputs.minimum-major-minor }} --tag-prefix ${{ inputs.tag-prefix }} --verbosity ${{ inputs.verbosity }}); 
+        Write-Output "::set-output name=version::$minverOutput"
+      shell: pwsh
