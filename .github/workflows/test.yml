@@ -35,7 +35,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run MinVer
         id: minver
-        uses: antitwink/minver@main
+        uses: theantitwink/minver@main
 
       - if: ${{ steps.minver.outputs.version != env.EXPECTED_VERSION }}
         uses: actions/github-script@v3
