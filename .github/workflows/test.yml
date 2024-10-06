@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 env:
-  EXPECTED_VERSION: '0.0.4-alpha.0'
+  EXPECTED_VERSION: '0.0.5'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -43,7 +43,7 @@ jobs:
         uses: theantitwink/minver@main
         with:
           ignore-height: ''
-          default-pre-release-identifiers: ''
+          default-pre-release-identifiers: 'alpha'
 
       - if: ${{ steps.minver.outputs.version != env.EXPECTED_VERSION }}
         uses: actions/github-script@v3
