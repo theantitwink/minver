@@ -43,7 +43,7 @@ jobs:
         uses: theantitwink/minver@main
         with:
           ignore-height: ''
-          default-pre-release-identifiers: 'alpha.0'
+          default-pre-release-identifiers: ''
 
       - if: ${{ steps.minver.outputs.version != env.EXPECTED_VERSION }}
         uses: actions/github-script@v3
