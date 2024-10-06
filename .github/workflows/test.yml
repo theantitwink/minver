@@ -30,7 +30,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4.2.0
+      - name: Checkout
+        uses: actions/checkout@v4.2.0
+        with:
+          fetch-depth: 0
+          # Whether to fetch tags, even if fetch-depth > 0.
+          fetch-tags: true
 
       # Runs a single command using the runners shell
       - name: Run MinVer
