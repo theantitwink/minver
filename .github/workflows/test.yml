@@ -41,6 +41,8 @@ jobs:
       - name: Run MinVer
         id: minver
         uses: theantitwink/minver@main
+          with:
+            ignore-height: true
 
       - if: ${{ steps.minver.outputs.version != env.EXPECTED_VERSION }}
         uses: actions/github-script@v3
