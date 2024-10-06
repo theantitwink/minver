@@ -35,7 +35,7 @@ jobs:
         with:
           fetch-depth: 0
           # Whether to fetch tags, even if fetch-depth > 0.
-          fetch-tags: true
+          fetch-tags: false
 
       # Runs a single command using the runners shell
       - name: Run MinVer
