@@ -42,7 +42,7 @@ jobs:
         id: minver
         uses: theantitwink/minver@main
         with:
-          ignore-height: true
+          ignore-height: ''
           default-pre-release-identifiers: ''
 
       - if: ${{ steps.minver.outputs.version != env.EXPECTED_VERSION }}
